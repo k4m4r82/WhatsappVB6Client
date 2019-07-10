@@ -2,15 +2,31 @@ VERSION 5.00
 Begin VB.Form MainForm 
    BorderStyle     =   1  'Fixed Single
    Caption         =   "Demo WhatsApp Client for VB6"
-   ClientHeight    =   3915
+   ClientHeight    =   3885
    ClientLeft      =   45
    ClientTop       =   435
-   ClientWidth     =   5355
+   ClientWidth     =   9405
    LinkTopic       =   "Form1"
    MaxButton       =   0   'False
-   ScaleHeight     =   3915
-   ScaleWidth      =   5355
+   ScaleHeight     =   3885
+   ScaleWidth      =   9405
    StartUpPosition =   2  'CenterScreen
+   Begin VB.ListBox lstMessages 
+      Height          =   2790
+      Left            =   3600
+      TabIndex        =   10
+      Top             =   840
+      Width           =   5535
+   End
+   Begin VB.CommandButton btnGetIncomingMessages 
+      Caption         =   "Get Incoming Messages"
+      Enabled         =   0   'False
+      Height          =   495
+      Left            =   3600
+      TabIndex        =   9
+      Top             =   240
+      Width           =   2055
+   End
    Begin VB.TextBox txtContact 
       Height          =   375
       Left            =   240
@@ -23,7 +39,7 @@ Begin VB.Form MainForm
       Left            =   240
       TabIndex        =   6
       Top             =   2760
-      Width           =   4935
+      Width           =   2895
    End
    Begin VB.CommandButton btnSend 
       Caption         =   "Send"
@@ -145,6 +161,7 @@ Private Sub btnStart_Click()
         
         btnStop.Enabled = True
         btnSend.Enabled = True
+        btnGetIncomingMessages.Enabled = True
     End If
     
     Screen.MousePointer = vbDefault
@@ -165,6 +182,27 @@ Private Sub btnStop_Click()
         
     btnStop.Enabled = False
     btnSend.Enabled = False
+    btnGetIncomingMessages.Enabled = False
+    
+    Screen.MousePointer = vbDefault
+End Sub
+
+Private Sub btnGetIncomingMessages_Click()
+    Dim i As Integer
+    
+    Screen.MousePointer = vbHourglass
+    DoEvents
+    
+    Dim incomingMessages As Variant
+    incomingMessages = client.GetIncomingMessages
+            
+    lstMessages.Clear
+    For i = 0 To UBound(incomingMessages)
+        Dim obj As IncomingMessage
+        
+        Set obj = incomingMessages(i)
+        lstMessages.AddItem (i + 1) & ". " & obj.From & " -> " & obj.Message
+    Next i
     
     Screen.MousePointer = vbDefault
 End Sub
