@@ -7,4 +7,4 @@ Sebelum membuka source code, lakukan proses instalasi
 
 ### Instalasi
 
-Untuk mendaftarkan library Whatsapp Client Library for VB6, jalankan file **reg.cmd** yang ada di folder *lib*.
+Untuk mendaftarkan library Whatsapp Client Library for VB6, jalankan file **reg.cmd** yang ada di folder *lib* melalui command prompt.
